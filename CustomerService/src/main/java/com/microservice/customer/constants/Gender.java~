@@ -1,0 +1,6 @@
+package com.mybank.customer.constants;
+
+public enum Gender {
+
+    MALE, FEMALE, OTHERS
+}
