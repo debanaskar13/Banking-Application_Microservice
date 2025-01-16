@@ -1,6 +1,13 @@
 server:
   port: 8085
 spring:
+  config:
+    import:
+      - "application-qa.yml"
+      - "application-prod.yml"
+  profiles:
+    active:
+      - "qa"
   application:
     name: cards-service
   datasource:
@@ -19,3 +26,15 @@ external:
   api:
     customer-service:
       url: http://localhost:8081
+
+build:
+  version: "1.2"
+
+cards:
+  message: "Welcome to MyBank cards related APIs"
+  contactDetails:
+    email: "debashis@example.com"
+    name: "Debashis - Developer"
+  onCallSupport:
+    - (+91) 7454712589
+    - (+91) 7541284579

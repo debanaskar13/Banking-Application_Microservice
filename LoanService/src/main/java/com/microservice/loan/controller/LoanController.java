@@ -5,10 +5,7 @@ import com.microservice.loan.annotation.ApiResponse_200_417_500;
 import com.microservice.loan.annotation.ApiResponse_200_500;
 import com.microservice.loan.annotation.ApiResponse_201_500;
 import com.microservice.loan.constants.LoanConstants;
-import com.microservice.loan.dto.LoanRequestDto;
-import com.microservice.loan.dto.LoanResponseDto;
-import com.microservice.loan.dto.LoanStatusUpdateRequestDto;
-import com.microservice.loan.dto.ResponseDto;
+import com.microservice.loan.dto.*;
 import com.microservice.loan.dto.external.LoanPaymentRequestDto;
 import com.microservice.loan.dto.external.LoanPaymentResponseDto;
 import com.microservice.loan.service.ILoanService;
@@ -17,6 +14,7 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -25,7 +23,6 @@ import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
-@RequiredArgsConstructor
 @RestController
 @RequestMapping(path = "/api/loans", produces = {MediaType.APPLICATION_JSON_VALUE})
 @Slf4j
@@ -37,6 +34,52 @@ import java.util.List;
 public class LoanController {
 
     private final ILoanService loanService;
+    private final LoansContactInfo loansContactInfo;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    public LoanController(ILoanService loanService, LoansContactInfo loansContactInfo) {
+        this.loansContactInfo = loansContactInfo;
+        this.loanService = loanService;
+    }
+
+
+    /**
+     * The API endpoint to retrieve the build version of the application.
+     * <p>
+     * This endpoint is intended for monitoring and debugging purposes.
+     * <p>
+     * The build version is returned as a plain text string.
+     * */
+
+    @Operation(
+            summary = "Get Build Information",
+            description = "Get Build Information that is deployed into loan microservice"
+    )
+    @ApiResponse_200_500
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
+
+    /**
+     * Get the contact information of the support team.
+     *
+     * @return the contact information of the support team
+     */
+    @Operation(
+            summary = "Get Contact Information",
+            description = "Get Contact Information that can be reached out if any issues with loan microservice"
+    )
+    @ApiResponse_200_500
+    @GetMapping("/contact-info")
+    public ResponseEntity<LoansContactInfo> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(loansContactInfo);
+    }
+
+
+
 
     /**
      * Rest API to create a new Loan

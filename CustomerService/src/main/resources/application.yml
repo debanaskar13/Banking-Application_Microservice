@@ -1,4 +1,11 @@
 spring:
+  config:
+    import:
+      - "application-qa.yml"
+      - "application-prod.yml"
+  profiles:
+    active:
+      - "qa"
   data:
     mongodb:
       host: localhost
@@ -15,3 +22,15 @@ external:
 
 server:
   port: 8081
+
+build:
+  version: "1.2"
+
+customers:
+  message: "Welcome to MyBank customer related APIs"
+  contactDetails:
+    email: "debashis@example.com"
+    name: "Debashis - Developer"
+  onCallSupport:
+    - (+91) 7454712589
+    - (+91) 7541284579

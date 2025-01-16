@@ -12,6 +12,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import jakarta.validation.constraints.Pattern;
 import lombok.RequiredArgsConstructor;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
+import org.springframework.core.env.Environment;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.MediaType;
 import org.springframework.http.ResponseEntity;
@@ -27,11 +30,54 @@ import java.util.List;
 )
 @RestController
 @RequestMapping(path = "/api/accounts", produces = {MediaType.APPLICATION_JSON_VALUE})
-@RequiredArgsConstructor
 @Validated
 public class AccountController {
 
     private final IAccountService accountService;
+
+    public AccountController(IAccountService accountService) {
+        this.accountService = accountService;
+    }
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    @Autowired
+    private AccountsContactInfo accountsContactInfo;
+
+
+    /**
+     * The API endpoint to retrieve the build version of the application.
+     * <p>
+     * This endpoint is intended for monitoring and debugging purposes.
+     * <p>
+     * The build version is returned as a plain text string.
+     * */
+
+    @Operation(
+            summary = "Get Build Information",
+            description = "Get Build Information that is deployed into account microservice"
+    )
+    @ApiResponse_200_500
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
+
+    /**
+     * Get the contact information of the support team.
+     *
+     * @return the contact information of the support team
+     */
+    @Operation(
+            summary = "Get Contact Information",
+            description = "Get Contact Information that can be reached out if any issues with account microservice"
+    )
+    @ApiResponse_200_500
+    @GetMapping("/contact-info")
+    public ResponseEntity<AccountsContactInfo> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(accountsContactInfo);
+    }
 
     /**
      * Create a new account.

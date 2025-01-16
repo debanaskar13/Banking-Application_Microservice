@@ -7,6 +7,7 @@ import com.microservice.customer.annotation.ApiResponse_201_500;
 import com.microservice.customer.constants.AppConstants;
 import com.microservice.customer.dto.CustomerDto;
 import com.microservice.customer.dto.CustomerUpdateDto;
+import com.microservice.customer.dto.CustomersContactInfo;
 import com.microservice.customer.dto.ResponseDto;
 import com.microservice.customer.service.ICustomerService;
 import io.swagger.v3.oas.annotations.Operation;
@@ -14,6 +15,8 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.beans.factory.annotation.Value;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.validation.annotation.Validated;
@@ -21,7 +24,6 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController
 @RequestMapping("/api/customers")
-@RequiredArgsConstructor
 @Validated
 @Slf4j
 @Tag(
@@ -31,6 +33,50 @@ import org.springframework.web.bind.annotation.*;
 public class CustomerController {
 
     private final ICustomerService ICustomerService;
+    private final CustomersContactInfo customersContactInfo;
+
+    @Value("${build.version}")
+    private String buildVersion;
+
+    public CustomerController(ICustomerService ICustomerService, CustomersContactInfo customersContactInfo) {
+        this.customersContactInfo = customersContactInfo;
+        this.ICustomerService = ICustomerService;
+    }
+
+
+    /**
+     * The API endpoint to retrieve the build version of the application.
+     * <p>
+     * This endpoint is intended for monitoring and debugging purposes.
+     * <p>
+     * The build version is returned as a plain text string.
+     * */
+
+    @Operation(
+            summary = "Get Build Information",
+            description = "Get Build Information that is deployed into customer microservice"
+    )
+    @ApiResponse_200_500
+    @GetMapping("/build-info")
+    public ResponseEntity<String> getBuildInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(buildVersion);
+    }
+
+    /**
+     * Get the contact information of the support team.
+     *
+     * @return the contact information of the support team
+     */
+    @Operation(
+            summary = "Get Contact Information",
+            description = "Get Contact Information that can be reached out if any issues with account microservice"
+    )
+    @ApiResponse_200_500
+    @GetMapping("/contact-info")
+    public ResponseEntity<CustomersContactInfo> getContactInfo() {
+        return ResponseEntity.status(HttpStatus.OK).body(customersContactInfo);
+    }
+
 
 
     /**

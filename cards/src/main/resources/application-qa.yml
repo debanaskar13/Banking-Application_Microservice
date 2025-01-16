@@ -1,0 +1,22 @@
+
+spring:
+  datasource:
+    url: jdbc:mysql://localhost:3306/card
+    username: root
+    password: root
+    driver-class-name: com.mysql.cj.jdbc.Driver
+  config:
+    activate:
+      on-profile: "qa"
+
+build:
+  version: "1.1"
+
+cards:
+  message: "Welcome to MyBank cards related APIs"
+  contactDetails:
+    email: "ananya@example.com"
+    name: "Ananya - QA Lead"
+  onCallSupport:
+    - (+91) 7451224157
+    - (+91) 5874235419

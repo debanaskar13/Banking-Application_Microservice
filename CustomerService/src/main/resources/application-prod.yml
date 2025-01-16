@@ -1,0 +1,24 @@
+spring:
+  data:
+    mongodb:
+      host: localhost
+      port: 27017
+      database: customer
+      username: root
+      password: root
+      authentication-database: admin
+
+  config:
+    activate:
+      on-profile: "prod"
+build:
+  version: "1.0"
+
+customers:
+  message: "Welcome to MyBank customer related APIs"
+  contactDetails:
+    email: "shivam@example.com"
+    name: "Shivam - Product Owner"
+  onCallSupport:
+    - (+91) 7454712589
+    - (+91) 7541284579
