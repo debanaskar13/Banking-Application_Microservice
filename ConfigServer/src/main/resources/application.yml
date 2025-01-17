@@ -5,9 +5,19 @@ spring:
   application:
     name: config-server
   profiles:
-    active: native
+    active: git
+  #    active: native
   cloud:
     config:
       server:
-        native:
-          search-locations: "classpath:/config"
+#        native:
+#          search-locations: "classpath:/config"
+#          search-locations: "file:///C://Users//deban//IdeaProjects//Bank Application Microservice//config"
+        git:
+          uri: "https://github.com/debanaskar13/banking-microservice-config.git"
+          default-label: master
+          timeout: 5
+          clone-on-start: true
+          force-pull: true
+encrypt:
+  key: "X7F4B9Q1T3W2G8V0Z5R6M0LJH1D8P"
