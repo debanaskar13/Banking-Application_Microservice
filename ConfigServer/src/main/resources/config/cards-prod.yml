@@ -1,0 +1,11 @@
+build:
+  version: "1.0"
+
+cards:
+  message: "Welcome to MyBank cards related APIs"
+  contactDetails:
+    email: "shivani@example.com"
+    name: "Shivani - Product Owner"
+  onCallSupport:
+    - (+91) 7451247412
+    - (+91) 5874285421

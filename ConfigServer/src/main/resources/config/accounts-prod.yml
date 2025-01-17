@@ -1,0 +1,12 @@
+build:
+  version: "1.0"
+
+accounts:
+  message: "Welcome to MyBank accounts related APIs"
+  contactDetails:
+    email: "aishwarya@example.com"
+    name: "Aishwarya - Product Owner"
+  onCallSupport:
+    - (+91) 7451248965
+    - (+91) 5874214863
+

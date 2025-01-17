@@ -1,0 +1,12 @@
+build:
+  version: "3.0"
+
+accounts:
+  message: "Welcome to MyBank accounts related APIs"
+  contactDetails:
+    email: "debashis@example.com"
+    name: "Debashis - Developer"
+  onCallSupport:
+    - (+91) 123456789
+    - (+91) 987654321
+

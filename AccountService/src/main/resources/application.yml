@@ -1,43 +1,24 @@
 server:
   port: 8082
-
 spring:
   application:
-    name: account-service
+    name: accounts
   profiles:
-    active:
-      - "qa"
+    active: "prod"
   datasource:
     url: jdbc:mysql://localhost:3306/account
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-  config:
-    import:
-      - "application-qa.yml"
-      - "application-prod.yml"
-
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.MySQLDialect
-
-
+  config:
+    import: "optional:configserver:http://localhost:8071/"
 external:
   api:
     customer-service:
       url: http://localhost:8081
-
-build:
-  version: "3.0"
-
-accounts:
-  message: "Welcome to MyBank accounts related APIs"
-  contactDetails:
-    email: "debashis@example.com"
-    name: "Debashis - Developer"
-  onCallSupport:
-    - (+91) 123456789
-    - (+91) 987654321
 

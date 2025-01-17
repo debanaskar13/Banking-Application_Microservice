@@ -1,0 +1,11 @@
+build:
+    version: "1.0"
+
+loans:
+    message: "Welcome to MyBank loan related APIs"
+    contactDetails:
+        email: "arijit@example.com"
+        name: "Arijit - Product Owner"
+    onCallSupport:
+        - (+91) 8647512494
+        - (+91) 9565523478

@@ -1,8 +1,6 @@
-server:
-    port: 8083
 spring:
     application:
-        name: loans
+        name: loan-service
     datasource:
         url: jdbc:mysql://localhost:3306/loan
         username: root
@@ -18,7 +16,9 @@ spring:
         active:
             - "prod"
     config:
-        import: "optional:configserver:http://localhost:8071/"
+        import:
+            - "loan-qa.yml"
+            - "loan-prod.yml"
 
 external:
     api:
@@ -26,3 +26,18 @@ external:
             url: http://localhost:8081
         payment-service:
             url: http://localhost:8084
+
+server:
+    port: 8083
+
+build:
+    version: "1.2"
+
+loans:
+    message: "Welcome to MyBank loan related APIs"
+    contactDetails:
+        email: "debashis@example.com"
+        name: "Debashis - Developer"
+    onCallSupport:
+        - (+91) 7454712589
+        - (+91) 7541284579

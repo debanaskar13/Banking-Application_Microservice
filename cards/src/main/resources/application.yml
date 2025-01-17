@@ -1,40 +1,25 @@
 server:
   port: 8085
 spring:
-  config:
-    import:
-      - "application-qa.yml"
-      - "application-prod.yml"
   profiles:
     active:
-      - "qa"
+      - "prod"
   application:
-    name: cards-service
+    name: cards
   datasource:
     url: jdbc:mysql://localhost:3306/card
     username: root
     password: root
     driver-class-name: com.mysql.cj.jdbc.Driver
-
   jpa:
     show-sql: true
     hibernate:
       ddl-auto: update
       dialect: org.hibernate.dialect.MySQLDialect
+  config:
+    import: "optional:configserver:http://localhost:8071/"
 
 external:
   api:
     customer-service:
       url: http://localhost:8081
-
-build:
-  version: "1.2"
-
-cards:
-  message: "Welcome to MyBank cards related APIs"
-  contactDetails:
-    email: "debashis@example.com"
-    name: "Debashis - Developer"
-  onCallSupport:
-    - (+91) 7454712589
-    - (+91) 7541284579

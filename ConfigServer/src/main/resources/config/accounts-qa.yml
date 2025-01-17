@@ -1,0 +1,12 @@
+build:
+  version: "2.0"
+
+accounts:
+  message: "Welcome to MyBank accounts related APIs"
+  contactDetails:
+    email: "ayan@example.com"
+    name: "Ayan - QA Lead"
+  onCallSupport:
+    - (+91) 4218754962
+    - (+91) 3512634879
+
